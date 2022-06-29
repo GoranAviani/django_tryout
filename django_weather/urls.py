@@ -14,12 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from .views import FacebookLogin, GoogleLogin
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-path('rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
-path('rest-auth/google/', GoogleLogin.as_view(), name='google_login')
+
+    path('dj-rest-auth/', include('dj_rest_auth.urls'))
+
 ]
