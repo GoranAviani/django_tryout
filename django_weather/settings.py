@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(l!k8bn)b+^id3@*@unqr#8-ua#6$mtifgb=lhb#c0)-3qhz$m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,8 +48,10 @@ INSTALLED_APPS = [
      'allauth.account',
      'rest_auth.registration',
      'allauth.socialaccount',
-     'allauth.socialaccount.providers.facebook',
      'allauth.socialaccount.providers.google',
+
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -60,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'django_weather.urls'
@@ -137,3 +141,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_ID = 1
+
+CORS_ORIGIN_ALLOW_ALL = True

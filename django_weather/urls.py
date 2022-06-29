@@ -14,12 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from .views import FacebookLogin, GoogleLogin
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-path('rest-auth/facebook/', FacebookLogin.as_view(), name='fb_login'),
-path('rest-auth/google/', GoogleLogin.as_view(), name='google_login')
+
+    path('dj-rest-auth/', include('dj_rest_auth.urls'))
+
+]
+
+from dj_rest_auth.registration.views import SocialLoginView
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+
+
+class GoolgeAuth(SocialLoginView):
+    print("google auth fun ")
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = "http://localhost:3000/accounts/google/login/callback/"
+    client_class = OAuth2Client
+
+
+urlpatterns = [
+    path('api/v1/rest-auth/google_auth/', GoolgeAuth.as_view(), 	 name='google_login'),
 ]
